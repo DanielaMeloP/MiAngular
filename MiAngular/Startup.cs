@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using MiAngular.Models;
 
 namespace MiAngular
 {
@@ -26,6 +28,26 @@ namespace MiAngular
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            // var connection = @"Server=15.0.2000.5;DataBase=AngularChat; Trusted_Connection=True; ConnectRetryCount=0";
+            // //var connection = "Trusted_connection=true; Data Source = localhost; database=AngularChat; user=UsuarioBD;Password=UsuarioBD; Integrated Security = True";
+            //// services.AddDbContext<MyDBContext>(options => options.UseSqlServer(connection));
+
+            // services.AddDbContext<MyDBContext>(cfg =>
+            // {
+            //     cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            // });
+
+            //services.AddControllers();
+
+            //services.AddDbContext<MyDBContext>(options =>
+            //    {
+            //        options.UseSqlServer(Configuration.GetConnectionString("AngularChat"));
+            //    });
+
+            // var connection = @"Data Source=localhost; Password =UsuarioBD;User ID =UsuarioBD;  Initial Catalog=Facturacion;MultipleActiveResultSets=True;";
+            var connection = @"Server=localhost;DataBase=AngularChat; Trusted_Connection=True; ConnectRetryCount=0";
+            services.AddDbContext<MyDBContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
