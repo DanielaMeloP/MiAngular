@@ -13,6 +13,9 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ChatComponent } from './chat/chat.component';
 import { MessageComponent } from './message/message.component';
 
+import { ChatService } from './service/chat.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +37,7 @@ import { MessageComponent } from './message/message.component';
       { path: 'chat', component: ChatComponent }
     ])
   ],
-  providers: [],
+  providers: [ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

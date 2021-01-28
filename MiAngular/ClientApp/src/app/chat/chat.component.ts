@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ChatService } from '../service/chat.service';
+
 
 
 @Component({
@@ -16,7 +18,9 @@ export class ChatComponent {
   ////Funciones propias del chat
   public lstMessages: Message[];
 
-  constructor(http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
+  constructor(http: HttpClient, @Inject("BASE_URL") baseUrl: string,
+    protected chatService: ChatService
+  ) {
     http.get<Message[]>(baseUrl + "api/Chat/Message").subscribe(result => {
       this.lstMessages = result;
      // console.log("Base URL: ", baseUrl);
