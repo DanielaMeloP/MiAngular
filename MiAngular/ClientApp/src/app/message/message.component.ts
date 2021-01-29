@@ -9,6 +9,11 @@ export class MessageComponent {
 
   @Input() oMessage: Message;
 
+
+
+
+
+
 }
 
 interface Message {

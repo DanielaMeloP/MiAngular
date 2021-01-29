@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MiAngular.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-
+using MiAngular.Models.Response;
 
 namespace MiAngular.Controllers
 {
@@ -30,13 +30,9 @@ namespace MiAngular.Controllers
             // Retorna tipo de dato MessageView
         public IEnumerable<MessageViewModel> Message()
         {
-            //Genera una lista de la bd
-            // List<Models.Message> lst = null;
-            //lst = db.Message.ToList();
-            // RETORNO DE JSON TABLA MESSAGE
-            // return Json(lst);
-
+          
             List<MessageViewModel> lst = (from d in db.Message
+                                          orderby d.Id descending
                                           select new MessageViewModel
                                           {
                                               Id = d.Id,
@@ -44,6 +40,33 @@ namespace MiAngular.Controllers
                                               Text = d.Text
                                           }).ToList();
             return lst;
+        }
+
+        [HttpPost("[action]")]
+        public MyResponse Add([FromBody]MessageViewModel model)
+        {
+            MyResponse oR = new MyResponse();
+            try
+            {
+                Models.Message oMessage = new Models.Message();
+                oMessage.Name = model.Name;
+                oMessage.Text = model.Text;
+                db.Message.Add(oMessage);
+                db.SaveChanges();
+
+
+                oR.Success = 1;
+                oR.Message = "Dato creado exitosamente";
+
+
+            }
+            catch (Exception ex)
+            {
+                oR.Success = 0;
+                oR.Message = ex.Message;
+            }
+
+            return oR;
         }
     }
 }

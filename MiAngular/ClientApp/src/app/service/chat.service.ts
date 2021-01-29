@@ -1,9 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { Message, MyResponse } from '../Interfaces';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 // Creación de servicio
 
 // Invocar interface para inyeccion de dependencias
 
-
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization' : 'my-auth-token'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,4 +19,25 @@ import { Injectable } from '@angular/core';
 
 export class ChatService {
   public algo: string = "Hola Hola";
+
+  baseUrl: string;
+
+  constructor(protected http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
+
+  public GetMessage(): Observable<Message[]> {
+    return this.http.get<Message[]>(this.baseUrl + "api/Chat/Message");
+  }
+
+  public Add(name, text) {
+    this.http.post<MyResponse>(this.baseUrl + 'api/Chat/Add',
+      { 'Name': name, 'Text': text }, httpOptions).
+      subscribe(result => {
+        console.log(result);
+      },
+        error => console.error(error)
+      );
+  }
+
 }

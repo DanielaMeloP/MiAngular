@@ -32,12 +32,14 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\chat\chat.component.ts" />
+    <None Remove="ClientApp\src\app\Interfaces.ts" />
     <None Remove="ClientApp\src\app\message\message.component.ts" />
     <None Remove="ClientApp\src\app\service\chat.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\chat\chat.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Interfaces.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\message\message.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\chat.service.ts" />
   </ItemGroup>
